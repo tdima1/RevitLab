@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Lab1Button.png" />
+    <Content Include="Resources\Lab1Button-2.jfif" />
+    <Content Include="Resources\Lab1Button-3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
