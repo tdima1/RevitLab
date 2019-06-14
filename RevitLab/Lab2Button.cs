@@ -9,26 +9,31 @@ using System.Threading.Tasks;
 
 namespace RevitLab
 {
-   [Transaction(Autodesk.Revit.Attributes.TransactionMode.ReadOnly)]
+   [Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
    class Lab2Button : IExternalCommand
    {
       public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
       {
          UIApplication app = commandData.Application;
          Document FamilyDoctument = app.ActiveUIDocument.Document;
+         string FamilyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\Lab3_Test_Family.rfa";
 
-         LoadFam(FamilyDoctument);
-         return Result.Succeeded;
-      }
+         Transaction trans = new Transaction(
+            FamilyDoctument, "FakeLoading");
 
-      void LoadFam(Autodesk.Revit.DB.Document document)
-      {
-         string FamilyPath = "C:\\Users\\Student\\source\\repos\\RevitLab\\RevitLab\\Resources\\families\\Lab3_Test_Family.rfa";
+         trans.Start();
 
-         Family family = null;
-         if (!document.LoadFamily(FamilyPath, out family)) {
-            throw new Exception("Unable to load " + FamilyPath);
+         Family family;
+
+         if (FamilyDoctument.LoadFamily(FamilyPath, out family)) {
+            String name = family.Name;
+            TaskDialog.Show("Revit", "Family file has been loaded. Its name is " + name);
+         } else {
+            TaskDialog.Show("Revit", "Can't load the family file.");
          }
+
+         trans.Commit();
+         return Result.Succeeded;
       }
    }
 }
