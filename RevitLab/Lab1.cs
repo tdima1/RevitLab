@@ -21,20 +21,37 @@ namespace RevitLab
       public Result OnStartup(UIControlledApplication app)
       {
          RibbonPanel panel = app.CreateRibbonPanel("New Ribbon Panel");
-         panel.AddSeparator();
 
-         PushButton Lab1Button = panel.AddItem(new PushButtonData("Lab 1",
-        "Press to display textbox", @"RevitLab.dll", "RevitLab.Lab1Button")) as PushButton;
-         Lab1Button.ToolTip = "Open text box";
-         BitmapImage Lab1ButtonImage = new BitmapImage(new Uri(@"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab1Button.png")) {
+         Laborator1(app, panel);
+         Laborator2(app, panel);
+
+         return Result.Succeeded;
+      }
+
+      public void AddImageToButton(PushButton btn, string uri)
+      {
+         BitmapImage Lab1ButtonImage = new BitmapImage(new Uri(uri)) {
             DecodePixelHeight = 10,
             DecodePixelWidth = 10
          };
-         Lab1Button.LargeImage = Lab1ButtonImage;
-             
-         //TaskDialog.Show("Lab1", "Done");
+         btn.LargeImage = Lab1ButtonImage;
+      }
 
-         return Result.Succeeded;
+      public void Laborator1(UIControlledApplication app, RibbonPanel panel)
+      {
+         PushButton Lab1Button = panel.AddItem(new PushButtonData("Lab 1",
+        "Display textbox", @"RevitLab.dll", "RevitLab.Lab1Button")) as PushButton;
+         AddImageToButton(Lab1Button, @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab1Button.png");
+         panel.AddSeparator();
+      }
+
+      public void Laborator2(UIControlledApplication app, RibbonPanel panel)
+      {
+         PushButton Lab2Button = panel.AddItem(new PushButtonData("Lab 2",
+        "Load Family", @"RevitLab.dll", "RevitLab.Lab2Button")) as PushButton;
+         AddImageToButton(Lab2Button, @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab2Button.png");
+         panel.AddSeparator();
+         
       }
    }
 }

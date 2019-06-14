@@ -50,12 +50,12 @@
   <ItemGroup>
     <Compile Include="Lab1.cs" />
     <Compile Include="Lab1Button.cs" />
+    <Compile Include="Lab2Button.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Lab1Button.png" />
-    <Content Include="Resources\Lab1Button-2.jfif" />
-    <Content Include="Resources\Lab1Button-3.png" />
+    <Content Include="Resources\Lab2Button.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
