@@ -24,6 +24,7 @@ namespace RevitLab
 
          Laborator1(app, panel);
          Laborator2(app, panel);
+         Laborator3(app, panel);
 
          return Result.Succeeded;
       }
@@ -31,8 +32,8 @@ namespace RevitLab
       public void AddImageToButton(PushButton btn, string uri)
       {
          BitmapImage Lab1ButtonImage = new BitmapImage(new Uri(uri)) {
-            DecodePixelHeight = 10,
-            DecodePixelWidth = 10
+            DecodePixelHeight = 16,
+            DecodePixelWidth = 16
          };
          btn.LargeImage = Lab1ButtonImage;
       }
@@ -53,5 +54,15 @@ namespace RevitLab
          panel.AddSeparator();
          
       }
+      public void Laborator3(UIControlledApplication app, RibbonPanel panel)
+      {
+         PushButton Lab3Button = panel.AddItem(new PushButtonData("Lab 3",
+        "Load Family", @"RevitLab.dll", "RevitLab.Lab3Button")) as PushButton;
+         AddImageToButton(Lab3Button, @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab2Button.png");
+         panel.AddSeparator();
+
+      }
+
+
    }
 }

@@ -51,6 +51,8 @@
     <Compile Include="Lab1.cs" />
     <Compile Include="Lab1Button.cs" />
     <Compile Include="Lab2Button.cs" />
+    <Compile Include="Lab3Button.cs" />
+    <Compile Include="LoadOpts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

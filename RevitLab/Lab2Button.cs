@@ -15,23 +15,20 @@ namespace RevitLab
       public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
       {
          UIApplication app = commandData.Application;
-         Document FamilyDoctument = app.ActiveUIDocument.Document;
+         Document FamilyDocument = app.ActiveUIDocument.Document;
          string FamilyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\Lab3_Test_Family.rfa";
 
          Transaction trans = new Transaction(
-            FamilyDoctument, "FakeLoading");
+            FamilyDocument, "FakeLoading");
 
          trans.Start();
-
          Family family;
-
-         if (FamilyDoctument.LoadFamily(FamilyPath, out family)) {
-            String name = family.Name;
+         if (FamilyDocument.LoadFamily(FamilyPath, out family)) {
+            string name = family.Name;
             TaskDialog.Show("Revit", "Family file has been loaded. Its name is " + name);
          } else {
             TaskDialog.Show("Revit", "Can't load the family file.");
          }
-
          trans.Commit();
          return Result.Succeeded;
       }
