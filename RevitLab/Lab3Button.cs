@@ -1,15 +1,12 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RevitLab
 {
-   [Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+   [Transaction(TransactionMode.Manual)]
    class Lab3Button : IExternalCommand
    {
       public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -19,26 +16,40 @@ namespace RevitLab
          string FamilyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\Lab3_Test_Family.rfa";
 
          Transaction trans = new Transaction(
-            doc, "FakeLoading");
+            doc, "Make new type");
 
          trans.Start();
 
-         Family family;
-
-         if (doc.LoadFamily(FamilyPath, out family)) {
-            String name = family.Name;
+         if (doc.LoadFamily(FamilyPath, out Family family)) {
+            string name = family.Name;
             TaskDialog.Show("Revit", "Family file has been loaded. Its name is " + name);
          } else {
             TaskDialog.Show("Revit", "Can't load the family file.");
          }
+         //FamilyManager famManager = doc.FamilyManager;
+         //famManager.NewType("60x100");
+         FamilySymbol firstSymbol = doc.GetElement(family.GetFamilySymbolIds().First()) as FamilySymbol;
+         FamilySymbol newSymbol = firstSymbol.Duplicate("test")  as FamilySymbol;
+         newSymbol.LookupParameter("D 1").Set(60);
+
+         //IList<Parameter> paramList = firstSymbol.GetParameters("D 1");
+         //
+         //for (int p = 0; p < paramList.Count; p++) {
+         //   newSymbol.GetParameters("D 1").ElementAt(p).Set(60);
+         //}
          trans.Commit();
-         Document familyDoc = doc.EditFamily(family);
-         MakeNewFamilyType(familyDoc, 60, 100);
 
-         GetFamilyTypesInFamily(familyDoc);
 
-         familyDoc.LoadFamily(doc, new LoadOpts());
+         
 
+         //Document familyDoc = doc.EditFamily(family);
+
+         //MakeNewFamilyType(familyDoc, 60, 100);
+         //
+         //GetFamilyTypesInFamily(familyDoc);
+         //
+         //familyDoc.LoadFamily(doc, new LoadOpts());
+         
          return Result.Succeeded;
       }
 
@@ -67,8 +78,6 @@ namespace RevitLab
                }
             }
 
-
-
             if (2 == changesMade)   
             {
                newFamilyTypeTransaction.Commit();
@@ -78,12 +87,10 @@ namespace RevitLab
             }
          }
       }
-
       public void GetFamilyTypesInFamily(Document familyDoc)
       {
          if (familyDoc.IsFamilyDocument) {
             FamilyManager familyManager = familyDoc.FamilyManager;
-            // get types in family
             string types = "Family Types: ";
             FamilyTypeSet familyTypes = familyManager.Types;
             FamilyTypeSetIterator familyTypesItor = familyTypes.ForwardIterator();

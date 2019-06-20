@@ -15,30 +15,28 @@ namespace RevitLab
    {
       public Result OnShutdown(UIControlledApplication application)
       {
-         throw new NotImplementedException();
+         return Result.Succeeded;
       }
 
       public Result OnStartup(UIControlledApplication app)
       {
          RibbonPanel panel = app.CreateRibbonPanel("New Ribbon Panel");
 
-         Laborator1(app, panel);
-         Laborator2(app, panel);
-         Laborator3(app, panel);
+         Laborator1(panel);
+         Laborator2(panel);
+         Laborator3(panel);
+         Laborator4(panel);
 
          return Result.Succeeded;
       }
 
       public void AddImageToButton(PushButton btn, string uri)
       {
-         BitmapImage Lab1ButtonImage = new BitmapImage(new Uri(uri)) {
-            DecodePixelHeight = 16,
-            DecodePixelWidth = 16
-         };
+         BitmapImage Lab1ButtonImage = new BitmapImage(new Uri(uri));
          btn.LargeImage = Lab1ButtonImage;
       }
 
-      public void Laborator1(UIControlledApplication app, RibbonPanel panel)
+      public void Laborator1(RibbonPanel panel)
       {
          PushButton Lab1Button = panel.AddItem(new PushButtonData("Lab 1",
         "Display textbox", @"RevitLab.dll", "RevitLab.Lab1Button")) as PushButton;
@@ -46,7 +44,7 @@ namespace RevitLab
          panel.AddSeparator();
       }
 
-      public void Laborator2(UIControlledApplication app, RibbonPanel panel)
+      public void Laborator2(RibbonPanel panel)
       {
          PushButton Lab2Button = panel.AddItem(new PushButtonData("Lab 2",
         "Load Family", @"RevitLab.dll", "RevitLab.Lab2Button")) as PushButton;
@@ -54,15 +52,20 @@ namespace RevitLab
          panel.AddSeparator();
          
       }
-      public void Laborator3(UIControlledApplication app, RibbonPanel panel)
+      public void Laborator3(RibbonPanel panel)
       {
          PushButton Lab3Button = panel.AddItem(new PushButtonData("Lab 3",
         "Load Family", @"RevitLab.dll", "RevitLab.Lab3Button")) as PushButton;
-         AddImageToButton(Lab3Button, @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab2Button.png");
+         AddImageToButton(Lab3Button, @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab3Button.png");
          panel.AddSeparator();
-
       }
-
+      public void Laborator4(RibbonPanel panel)
+      {
+         PushButton Lab4Button = panel.AddItem(new PushButtonData("Lab 4",
+        "Make Selection", @"RevitLab.dll", "RevitLab.Lab4Button")) as PushButton;
+         AddImageToButton(Lab4Button, @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab3Button.png");
+         panel.AddSeparator();
+      }
 
    }
 }
