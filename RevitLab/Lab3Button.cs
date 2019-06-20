@@ -26,21 +26,49 @@ namespace RevitLab
          } else {
             TaskDialog.Show("Revit", "Can't load the family file.");
          }
+         trans.Commit();
          //FamilyManager famManager = doc.FamilyManager;
          //famManager.NewType("60x100");
-         FamilySymbol firstSymbol = doc.GetElement(family.GetFamilySymbolIds().First()) as FamilySymbol;
-         FamilySymbol newSymbol = firstSymbol.Duplicate("test")  as FamilySymbol;
-         newSymbol.LookupParameter("D 1").Set(60);
 
          //IList<Parameter> paramList = firstSymbol.GetParameters("D 1");
          //
          //for (int p = 0; p < paramList.Count; p++) {
          //   newSymbol.GetParameters("D 1").ElementAt(p).Set(60);
          //}
+
+         FilteredElementCollector symbols
+            = new FilteredElementCollector(doc)
+               .OfClass(typeof(FamilySymbol));
+
+         //string str = "";
+         //foreach (FamilySymbol s in symbols) {
+         //   str = str + s.Name + "\n";
+         //}
+         //TaskDialog.Show("sfsa", str);
+
+         FamilySymbol toCloneSymbol = null;
+
+         for (int i = 0; i < symbols.Count(); i++) {
+            if (symbols.ElementAt(i).Name == "Ball Valve") {
+               toCloneSymbol = symbols.ElementAt(i) as FamilySymbol;
+            }
+         }
+
+         trans.Start();
+         FamilySymbol newSymbol = toCloneSymbol.Duplicate("test") as FamilySymbol;
+         newSymbol.LookupParameter("D 1").Set(60);
          trans.Commit();
+         //Can't make type "Lab3_Test_Family : test".
 
 
-         
+
+
+         // trans.Start();
+         // FamilySymbol newSymbol = firstSymbol.Duplicate("test") as FamilySymbol;
+         // newSymbol.LookupParameter("D 1").Set(60);
+         // trans.Commit();
+
+
 
          //Document familyDoc = doc.EditFamily(family);
 
@@ -49,7 +77,7 @@ namespace RevitLab
          //GetFamilyTypesInFamily(familyDoc);
          //
          //familyDoc.LoadFamily(doc, new LoadOpts());
-         
+
          return Result.Succeeded;
       }
 
