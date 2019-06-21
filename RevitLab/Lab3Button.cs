@@ -1,9 +1,22 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+/*FilteredElementCollector symbols
+            = new FilteredElementCollector(doc)
+               .OfClass(typeof(FamilySymbol));
 
+         FamilySymbol toCloneSymbol = null;
+
+         for (int i = 0; i < symbols.Count(); i++) {
+            if (symbols.ElementAt(i).Name == "Ball Valve") {
+               toCloneSymbol = symbols.ElementAt(i) as FamilySymbol;
+            }
+         }
+         TaskDialog.Show("Symbol to clone", toCloneSymbol.Name);*/
 namespace RevitLab
 {
    [Transaction(TransactionMode.Manual)]
@@ -14,69 +27,56 @@ namespace RevitLab
          UIApplication app = commandData.Application;
          Document doc = app.ActiveUIDocument.Document;
          string FamilyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\Lab3_Test_Family.rfa";
+         Family family = null;
+         FamilySymbol newSymbol = null;
 
-         Transaction trans = new Transaction(
-            doc, "Make new type");
+         using (Transaction trans = new Transaction(doc, "Load family")) {
 
-         trans.Start();
+            trans.Start();
 
-         if (doc.LoadFamily(FamilyPath, out Family family)) {
-            string name = family.Name;
-            TaskDialog.Show("Revit", "Family file has been loaded. Its name is " + name);
-         } else {
-            TaskDialog.Show("Revit", "Can't load the family file.");
-         }
-         trans.Commit();
-         //FamilyManager famManager = doc.FamilyManager;
-         //famManager.NewType("60x100");
-
-         //IList<Parameter> paramList = firstSymbol.GetParameters("D 1");
-         //
-         //for (int p = 0; p < paramList.Count; p++) {
-         //   newSymbol.GetParameters("D 1").ElementAt(p).Set(60);
-         //}
-
-         FilteredElementCollector symbols
-            = new FilteredElementCollector(doc)
-               .OfClass(typeof(FamilySymbol));
-
-         //string str = "";
-         //foreach (FamilySymbol s in symbols) {
-         //   str = str + s.Name + "\n";
-         //}
-         //TaskDialog.Show("sfsa", str);
-
-         FamilySymbol toCloneSymbol = null;
-
-         for (int i = 0; i < symbols.Count(); i++) {
-            if (symbols.ElementAt(i).Name == "Ball Valve") {
-               toCloneSymbol = symbols.ElementAt(i) as FamilySymbol;
+            if (doc.LoadFamily(FamilyPath, out family)) {
+               string name = family.Name;
+               TaskDialog.Show("Revit", "Family file has been loaded. Its name is " + name);
+            } else {
+               TaskDialog.Show("Revit", "Family file already loaded.");
             }
+            trans.Commit();
          }
 
-         trans.Start();
-         FamilySymbol newSymbol = toCloneSymbol.Duplicate("test") as FamilySymbol;
-         newSymbol.LookupParameter("D 1").Set(60);
-         trans.Commit();
-         //Can't make type "Lab3_Test_Family : test".
+         var firstSymbolId = family.GetFamilySymbolIds().First();
+         FamilySymbol toCloneSymbol = (FamilySymbol)doc.GetElement(firstSymbolId);
+
+         using (Transaction trans = new Transaction(doc, "Duplicate object and set params")) {
+            trans.Start();
+
+            double d1FeetValue = UnitUtils.ConvertToInternalUnits(60, DisplayUnitType.DUT_MILLIMETERS);
+            double l1FeetValue = UnitUtils.ConvertToInternalUnits(100, DisplayUnitType.DUT_MILLIMETERS);
+
+            try {
+               newSymbol = toCloneSymbol.Duplicate("Ball Valve 2") as FamilySymbol;
+               Parameter d1Param = newSymbol.LookupParameter("D 1");
+               Parameter l1Param = newSymbol.LookupParameter("L 1");
+
+               if (null != d1Param) {
+                  d1Param.Set(d1FeetValue);
+               }
+               if (null != l1Param) {
+                  l1Param.Set(l1FeetValue);
+               }
+
+            } catch (Exception e) {
+               TaskDialog.Show("Exception: ", e.Message);
+            }
+            trans.Commit();
+         }
+
+         using (Transaction trans = new Transaction(doc, "Insert Family Instance")) {
+            trans.Start();
+            FamilyInstance instance = doc.Create.NewFamilyInstance(new XYZ(), newSymbol, StructuralType.UnknownFraming);
+            trans.Commit();
+         }
 
 
-
-
-         // trans.Start();
-         // FamilySymbol newSymbol = firstSymbol.Duplicate("test") as FamilySymbol;
-         // newSymbol.LookupParameter("D 1").Set(60);
-         // trans.Commit();
-
-
-
-         //Document familyDoc = doc.EditFamily(family);
-
-         //MakeNewFamilyType(familyDoc, 60, 100);
-         //
-         //GetFamilyTypesInFamily(familyDoc);
-         //
-         //familyDoc.LoadFamily(doc, new LoadOpts());
 
          return Result.Succeeded;
       }
@@ -106,11 +106,9 @@ namespace RevitLab
                }
             }
 
-            if (2 == changesMade)   
-            {
+            if (2 == changesMade) {
                newFamilyTypeTransaction.Commit();
-            } else   
-              {
+            } else {
                newFamilyTypeTransaction.RollBack();
             }
          }
