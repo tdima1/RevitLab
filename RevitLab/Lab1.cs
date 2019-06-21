@@ -20,7 +20,7 @@ namespace RevitLab
 
       public Result OnStartup(UIControlledApplication app)
       {
-         RibbonPanel panel = app.CreateRibbonPanel("New Ribbon Panel");
+         RibbonPanel panel = app.CreateRibbonPanel("New Panel");
 
          Laborator1(panel);
          Laborator2(panel);
@@ -55,7 +55,7 @@ namespace RevitLab
       public void Laborator3(RibbonPanel panel)
       {
          PushButton Lab3Button = panel.AddItem(new PushButtonData("Lab 3",
-        "Load Family", @"RevitLab.dll", "RevitLab.Lab3Button")) as PushButton;
+        "Duplicate Symbol and place", @"RevitLab.dll", "RevitLab.Lab3Button")) as PushButton;
          AddImageToButton(Lab3Button, @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab3Button.png");
          panel.AddSeparator();
       }

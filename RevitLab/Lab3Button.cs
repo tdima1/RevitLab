@@ -30,6 +30,7 @@ namespace RevitLab
          Family family = null;
          FamilySymbol newSymbol = null;
 
+
          using (Transaction trans = new Transaction(doc, "Load family")) {
 
             trans.Start();
@@ -39,6 +40,14 @@ namespace RevitLab
                TaskDialog.Show("Revit", "Family file has been loaded. Its name is " + name);
             } else {
                TaskDialog.Show("Revit", "Family file already loaded.");
+
+               FilteredElementCollector families
+                  = new FilteredElementCollector(doc)
+                     .OfClass(typeof(Family));
+
+               family = (from f in families
+                        where f.Name == "Lab3_Test_Family"
+                        select f as Family).First();
             }
             trans.Commit();
          }
@@ -72,7 +81,9 @@ namespace RevitLab
 
          using (Transaction trans = new Transaction(doc, "Insert Family Instance")) {
             trans.Start();
-            FamilyInstance instance = doc.Create.NewFamilyInstance(new XYZ(), newSymbol, StructuralType.UnknownFraming);
+            if (null != newSymbol) {
+               FamilyInstance instance = doc.Create.NewFamilyInstance(new XYZ(), newSymbol, StructuralType.UnknownFraming);
+            }
             trans.Commit();
          }
 

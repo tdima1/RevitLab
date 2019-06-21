@@ -12,7 +12,7 @@ namespace RevitLab
          UIApplication app = commandData.Application;
          Document document = app.ActiveUIDocument.Document;
          string familyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\Lab3_Test_Family.rfa";
-         string str = "";
+         //string str = "";
 
          Transaction trans = new Transaction(document, "Loading");
 
