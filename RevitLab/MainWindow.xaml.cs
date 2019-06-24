@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RevitLab
+namespace Lab4Window
 {
    /// <summary>
-   /// Interaction logic for Lab4Window.xaml
+   /// Interaction logic for MainWindow.xaml
    /// </summary>
-   public partial class Lab4Window : UserControl
+   public partial class MainWindow : Window
    {
-      public Lab4Window()
+      public MainWindow()
       {
          InitializeComponent();
       }

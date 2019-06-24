@@ -53,15 +53,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.xaml.cs" />
     <Compile Include="Lab1.cs" />
     <Compile Include="Lab1Button.cs" />
     <Compile Include="Lab2Button.cs" />
     <Compile Include="Lab3Button.cs" />
     <Compile Include="Lab4Button.cs" />
-    <Compile Include="Lab4Window.xaml.cs">
-      <DependentUpon>Lab4Window.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Lab5Button.cs" />
     <Compile Include="LoadOpts.cs" />
+    <Compile Include="MainWindow.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,11 +69,19 @@
     <Content Include="Resources\Lab2Button.png" />
     <Content Include="Resources\Lab3Button.png" />
     <Content Include="Resources\Lab4Button.png" />
+    <Content Include="Resources\Lab5Button.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Lab4Window.xaml">
-      <SubType>Designer</SubType>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

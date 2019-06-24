@@ -1,0 +1,17 @@
+﻿<Window x:Class="Lab4Window.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab4Window"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="X: " HorizontalAlignment="Left" Margin="129,134,0,0" VerticalAlignment="Top" Name="xLabel"/>
+        <Label Content="Y: " HorizontalAlignment="Left" Margin="129,197,0,0" VerticalAlignment="Top" Name="yLabel"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="219,134,0,0" VerticalAlignment="Top" Name="xValueLabel" Width="115"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="219,197,0,0" VerticalAlignment="Top" Name="yValueLabel" Width="123"/>
+
+
+    </Grid>
+</Window>

@@ -3,6 +3,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using Lab4Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,6 @@ namespace RevitLab
          string FamilyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\Lab4_Test_Family.rfa";
          Family family = null;
          List<FamilySymbol> familySymbols = new List<FamilySymbol>();
-         XYZ placementPoint = new XYZ(15, 10, 0);
          XYZ position = new XYZ();
 
 
@@ -55,22 +55,23 @@ namespace RevitLab
 
          using (Transaction trans = new Transaction(doc, "Insert Family Instances")) {
             trans.Start();
-            //Random rand = new Random();
 
             if (familySymbols.Count > 0) {
                foreach (FamilySymbol fs in familySymbols) {
                   fs.Activate();
 
                   FamilyInstance instance = doc.Create.NewFamilyInstance
-                     (placementPoint, fs, StructuralType.UnknownFraming);
+                     (new XYZ(), fs, StructuralType.UnknownFraming);
 
-                  position = instance.GetTransform().OfPoint(placementPoint);
                }
             }
+
+
             trans.Commit();
          }
 
          using (Transaction getParamsTransaction = new Transaction(doc, "Select items in view")) {
+            MainWindow resultWindow = new MainWindow();
             getParamsTransaction.Start();
             string selections = "";
             try {
@@ -78,15 +79,23 @@ namespace RevitLab
                sel.Dispose();
 
                foreach (var s in refs) {
-                  selections += $" {position.X} {position.Y} \n";
+                  Element selectedElement = doc.GetElement(s.ElementId);
+                  Element elTypeId = selectedElement.Document.GetElement(selectedElement.GetTypeId());
+                  //selections += $"X: {elTypeId.LookupParameter("x").AsDouble()} Y: {elTypeId.LookupParameter("y").AsDouble()} \n";
+                  resultWindow.xValueLabel.Content = elTypeId.LookupParameter("x").AsDouble().ToString();
+                  resultWindow.yValueLabel.Content = elTypeId.LookupParameter("y").AsDouble().ToString();
                }
+               resultWindow.ShowDialog();
 
-               TaskDialog.Show("Elements", selections);
+               //TaskDialog.Show("Elements", selections);
 
             } catch (Exception e) {
                TaskDialog.Show("Exception", e.Message);
             }
+
+
             getParamsTransaction.Commit();
+
          }
          return Result.Succeeded;
       }

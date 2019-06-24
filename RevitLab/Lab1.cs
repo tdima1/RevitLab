@@ -13,7 +13,7 @@ namespace RevitLab
    [Transaction(TransactionMode.ReadOnly)]
    public class Lab1 : IExternalApplication
    {
-      private const int numberOfAddins = 4;
+      private int numberOfAddins;
       private List<string> buttonNames = new List<string>();
 
       public Result OnShutdown(UIControlledApplication application)
@@ -27,6 +27,8 @@ namespace RevitLab
          buttonNames.Add("Load Family");
          buttonNames.Add("Duplicate Symbol and place");
          buttonNames.Add("Make Selection");
+         buttonNames.Add("Display selection category");
+         numberOfAddins = buttonNames.Count();
       }
 
       public void Initialize(RibbonPanel panel, int addinNum, string buttonName)
