@@ -61,6 +61,7 @@
     <Compile Include="Lab4Button.cs" />
     <Compile Include="Lab5Button.cs" />
     <Compile Include="LoadOpts.cs" />
+    <Compile Include="Lab5Window.cs" />
     <Compile Include="MainWindow.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Lab5Window.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

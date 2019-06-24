@@ -2,8 +2,10 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using LabRevit;
 using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace RevitLab
 {
@@ -15,18 +17,27 @@ namespace RevitLab
          UIDocument uidoc = commandData.Application.ActiveUIDocument;
          Document doc = uidoc.Document;
          Selection sel = uidoc.Selection;
-         string selections = "";
+         Lab5Window window = new Lab5Window();
+
          using (Transaction trans = new Transaction(doc, "Display selected elements category")){
             trans.Start();
             try {
                IList<Reference> refs = sel.PickObjects(ObjectType.Element, "Please select some elements");
                sel.Dispose();
+               GridView view = new GridView();
+
+               GridViewColumn col2 = new GridViewColumn {
+                  Header = "Category Name"
+               };
+               view.Columns.Add(col2);
+
+               window.CategoryList.View = view;
 
                foreach (var s in refs) {
-                  selections += doc.GetElement(s.ElementId).Category.Name + "\n";
+                  window.CategoryList.Items.Add(doc.GetElement(s.ElementId).Category.Name);
                }
 
-            TaskDialog.Show("title", selections);
+               window.Show();
 
             } catch (Exception e) {
                TaskDialog.Show("Exception", e.Message);

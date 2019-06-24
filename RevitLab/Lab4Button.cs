@@ -3,7 +3,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
-using Lab4Window;
+using LabRevit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +73,6 @@ namespace RevitLab
          using (Transaction getParamsTransaction = new Transaction(doc, "Select items in view")) {
             MainWindow resultWindow = new MainWindow();
             getParamsTransaction.Start();
-            string selections = "";
             try {
                IList<Reference> refs = sel.PickObjects(ObjectType.Element, "Please select some elements");
                sel.Dispose();
@@ -81,21 +80,15 @@ namespace RevitLab
                foreach (var s in refs) {
                   Element selectedElement = doc.GetElement(s.ElementId);
                   Element elTypeId = selectedElement.Document.GetElement(selectedElement.GetTypeId());
-                  //selections += $"X: {elTypeId.LookupParameter("x").AsDouble()} Y: {elTypeId.LookupParameter("y").AsDouble()} \n";
                   resultWindow.xValueLabel.Content = elTypeId.LookupParameter("x").AsDouble().ToString();
                   resultWindow.yValueLabel.Content = elTypeId.LookupParameter("y").AsDouble().ToString();
                }
                resultWindow.ShowDialog();
 
-               //TaskDialog.Show("Elements", selections);
-
             } catch (Exception e) {
                TaskDialog.Show("Exception", e.Message);
             }
-
-
             getParamsTransaction.Commit();
-
          }
          return Result.Succeeded;
       }
