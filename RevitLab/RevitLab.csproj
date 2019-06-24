@@ -68,6 +68,7 @@
     <Content Include="Resources\Lab1Button.png" />
     <Content Include="Resources\Lab2Button.png" />
     <Content Include="Resources\Lab3Button.png" />
+    <Content Include="Resources\Lab4Button.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Lab4Window.xaml">

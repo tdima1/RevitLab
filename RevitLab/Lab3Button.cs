@@ -86,9 +86,6 @@ namespace RevitLab
             }
             trans.Commit();
          }
-
-
-
          return Result.Succeeded;
       }
 
