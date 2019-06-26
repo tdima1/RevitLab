@@ -26,7 +26,7 @@ namespace RevitLab
          buttonNames.Add("Display textbox");
          buttonNames.Add("Load Family");
          buttonNames.Add("Duplicate Symbol and place");
-         buttonNames.Add("Make Selection");
+         buttonNames.Add("Make Selection of family 4 elem");
          buttonNames.Add("Display selection category");
          numberOfAddins = buttonNames.Count();
       }

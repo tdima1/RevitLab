@@ -5,7 +5,7 @@ using Autodesk.Revit.UI.Selection;
 using LabRevit;
 using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
+using System.Linq;
 
 namespace RevitLab
 {
@@ -22,27 +22,26 @@ namespace RevitLab
          using (Transaction trans = new Transaction(doc, "Display selected elements category")){
             trans.Start();
             try {
-               IList<Reference> refs = sel.PickObjects(ObjectType.Element, "Please select some elements");
-               sel.Dispose();
-               GridView view = new GridView();
 
-               GridViewColumn col2 = new GridViewColumn {
-                  Header = "Category Name"
-               };
-               view.Columns.Add(col2);
+            FilteredElementCollector instances
+                     = new FilteredElementCollector(doc, doc.ActiveView.Id);
 
-               window.CategoryList.View = view;
+            List<MyListViewItem> myListViewItems = new List<MyListViewItem>();
 
-               foreach (var s in refs) {
-                  window.CategoryList.Items.Add(doc.GetElement(s.ElementId).Category.Name);
+               foreach (var inst in instances.ToElements()) {
+                  myListViewItems.Add(new MyListViewItem() { Id = inst.Id.IntegerValue,
+                     CategoryName = inst.Name });
+                  
                }
 
+               window.CategoryList.ItemsSource = myListViewItems;
                window.Show();
+               trans.Commit();
 
             } catch (Exception e) {
                TaskDialog.Show("Exception", e.Message);
+               trans.RollBack();
             }
-            trans.Commit();
             return Result.Succeeded;
          }
       }

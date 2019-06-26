@@ -46,7 +46,7 @@ namespace RevitLab
                      .OfClass(typeof(Family));
 
                family = (from f in families
-                        where f.Name == "Lab3_Test_Family"
+                        where f.Name.ToLower().Equals(("Lab3_Test_Family").ToLower())
                         select f as Family).First();
             }
             trans.Commit();
