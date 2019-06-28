@@ -16,8 +16,8 @@ namespace RevitLab
       {
          UIDocument uidoc = commandData.Application.ActiveUIDocument;
          Document doc = uidoc.Document;
-         Selection sel = uidoc.Selection;
-         Lab5Window window = new Lab5Window();
+         //Selection sel = uidoc.Selection;
+         Lab5Window window = new Lab5Window(uidoc);
 
          using (Transaction trans = new Transaction(doc, "Display selected elements category")){
             trans.Start();
@@ -44,6 +44,16 @@ namespace RevitLab
             }
             return Result.Succeeded;
          }
+      }
+
+      public Result MakeSelection(UIDocument _uidoc, Document _doc, ICollection<ElementId> selectedElems)
+      {
+         using (Transaction trans = new Transaction(_doc, "Highlight selected element from Window")) {
+            trans.Start();
+            _uidoc.Selection.SetElementIds(selectedElems);
+            trans.Commit();
+         }
+         return Result.Succeeded;
       }
    }
 }

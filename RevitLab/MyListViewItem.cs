@@ -1,37 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace RevitLab
 {
-   class MyListViewItem : INotifyPropertyChanged
+   class MyListViewItem
    {
-      public int Id
-      {
-         get { return Id; }
-         set
-         {
-            if (Id != value) {
-               Id = value;
-               OnPropertyChange("Id");
-            }
-         }
-      }
-      public string CategoryName
-      {
-         get { return CategoryName; }
-         set
-         {
-            if (CategoryName != value) {
-               CategoryName = value;
-               OnPropertyChange("CategoryName");
-            }
-         }
-      }
-
-      public event PropertyChangedEventHandler PropertyChanged;
-
-      protected void OnPropertyChange(string propertyName)
-      {
-         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-      }
+      public int Id { get; set; }
+      public string CategoryName { get; set; }
    }
 }

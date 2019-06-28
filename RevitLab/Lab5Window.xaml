@@ -7,16 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ListView HorizontalAlignment="Left" Height="283" Margin="91,68,0,0" VerticalAlignment="Top" Width="385" x:Name="CategoryList" >
+        <ListView HorizontalAlignment="Left" Height="283" Margin="91,68,0,0" VerticalAlignment="Top" Width="385" x:Name="CategoryList">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="CategoryName" DisplayMemberBinding="{Binding CategoryName}"/>
+                    <GridViewColumn Header="CategoryName" DisplayMemberBinding="{Binding CategoryName, UpdateSourceTrigger=PropertyChanged}"/>
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
-        <Button Content="Switch to Revit Selection" HorizontalAlignment="Left" Margin="508,69,0,0" VerticalAlignment="Top" Width="259" Height="46"
-                Command="{Binding Path=UpdateCommand}" />
 
 
     </Grid>

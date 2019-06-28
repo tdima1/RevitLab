@@ -12,10 +12,12 @@ namespace RevitLab.ViewModels
    class Lab5ViewModel
    {
       private IList<MyListViewItem> itemsList;
+      public ICommand listViewClick;
 
       public Lab5ViewModel()
       {
          itemsList = new List<MyListViewItem>();
+         //this.listViewClick = new CommandBinding(listViewClick)
       }
 
       public IList<MyListViewItem> Items
@@ -34,19 +36,6 @@ namespace RevitLab.ViewModels
          TaskDialog.Show("test", "command test");
       }
 
-      private ICommand _doSomething;
-      public ICommand DoSomethingCommand
-      {
-         get
-         {
-            if (_doSomething == null) {
-               _doSomething = new RelayCommand(
-                   p => this.CanExecute(),
-                   p => this.Execute());
-               ;
-            }
-            return _doSomething;
-         }
-      }
+      
    }
 }
