@@ -63,7 +63,7 @@
     <Compile Include="Lab5Button.cs" />
     <Compile Include="Lab6Button.cs" />
     <Compile Include="Lab7Button.cs" />
-    <Compile Include="LenghtCommand.cs" />
+    <Compile Include="Lab7Utils.cs" />
     <Compile Include="LoadOpts.cs" />
     <Compile Include="Lab5Window.cs" />
     <Compile Include="LenghtInputWindow.cs" />

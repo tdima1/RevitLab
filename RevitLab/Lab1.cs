@@ -29,6 +29,7 @@ namespace RevitLab
          buttonNames.Add("Make Selection of family 4 elem");
          buttonNames.Add("Display selection category");
          buttonNames.Add("Translate selected element");
+         buttonNames.Add("Draw Cube");
          numberOfAddins = buttonNames.Count();
       }
 
@@ -36,7 +37,7 @@ namespace RevitLab
       {
          PushButton button = panel.AddItem(new PushButtonData($"Lab {addinNum}",
          buttonName, @"RevitLab.dll", $"RevitLab.Lab{addinNum}Button")) as PushButton;
-         AddImageToButton(button, $@"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\Lab{addinNum}Button.png");
+         AddImageToButton(button, $@"C:\Users\TDima\Desktop\Workplace\RevitLab\Resources\Lab{addinNum}Button.png");
          panel.AddSeparator();
       }
 

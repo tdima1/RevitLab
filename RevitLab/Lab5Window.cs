@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace LabRevit
+namespace RevitLab
 {
    /// <summary>
    /// Interaction logic for MainWindow.xaml
