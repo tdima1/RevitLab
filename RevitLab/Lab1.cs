@@ -29,6 +29,7 @@ namespace RevitLab
          buttonNames.Add("Make Selection of family 4 elem");
          buttonNames.Add("Display selection category");
          buttonNames.Add("Translate selected element");
+         buttonNames.Add("Draw Cube");
          numberOfAddins = buttonNames.Count();
       }
 

@@ -1,4 +1,4 @@
-﻿<Window x:Class="LabRevit.LenghtInputWindow"
+﻿<Window x:Class="RevitLab.LenghtInputWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,12 +9,12 @@
         Title="Lenght Input" Height="99.833" Width="371.833">
     <Grid>
         <Grid.DataContext>
-            <local:Lab7Button/>
+            <local:Lab7Utils/>
         </Grid.DataContext>
-        
+
         <Label Content="Please type in a lenght: " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Name="lenghtLabel"/>
         <TextBox HorizontalAlignment="Left" Height="26" Margin="150,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="192" Name="lenTextBox"/>
-        <Button Content="Confirm" CommandParameter="lenTextBox" Command="{StaticResource com}" HorizontalAlignment="Left" Margin="150,41,0,0" VerticalAlignment="Top" Width="75" Name="lenBtn"/>
+        <Button Content="Confirm" Command="{Binding GetCubeSize}" CommandParameter="{Binding Text, ElementName=lenTextBox}" HorizontalAlignment="Left" Margin="150,41,0,0" VerticalAlignment="Top" Width="75" Name="lenBtn"/>
 
 
     </Grid>

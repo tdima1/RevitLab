@@ -1,7 +1,7 @@
-﻿using RevitLab.ViewModels;
-using System.Windows;
+﻿using System.Windows;
+using RevitLab;
 
-namespace LabRevit
+namespace RevitLab
 {
    /// <summary>
    /// Interaction logic for MainWindow.xaml
