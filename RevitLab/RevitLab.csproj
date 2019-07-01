@@ -54,14 +54,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs" />
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="Lab1.cs" />
     <Compile Include="Lab1Button.cs" />
     <Compile Include="Lab2Button.cs" />
     <Compile Include="Lab3Button.cs" />
     <Compile Include="Lab4Button.cs" />
     <Compile Include="Lab5Button.cs" />
+    <Compile Include="Lab6Button.cs" />
+    <Compile Include="Lab7Button.cs" />
+    <Compile Include="LenghtCommand.cs" />
     <Compile Include="LoadOpts.cs" />
     <Compile Include="Lab5Window.cs" />
+    <Compile Include="LenghtInputWindow.cs" />
     <Compile Include="MainWindow.xaml.cs" />
     <Compile Include="MyListViewItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +78,7 @@
     <Content Include="Resources\Lab3Button.png" />
     <Content Include="Resources\Lab4Button.png" />
     <Content Include="Resources\Lab5Button.png" />
+    <Content Include="Resources\Lab6Button.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -83,6 +89,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Lab5Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LenghtInputWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

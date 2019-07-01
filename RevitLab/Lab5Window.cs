@@ -2,20 +2,10 @@
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using RevitLab;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LabRevit
 {
@@ -37,10 +27,10 @@ namespace LabRevit
 
       public void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
       {
-         var item = sender as ListViewItem;
-         Selection selection;
-         FilteredElementCollector instances
-               = new FilteredElementCollector(_doc, _doc.ActiveView.Id);
+         ListViewItem item = sender as ListViewItem;
+         //Selection selection;
+         //FilteredElementCollector instances
+         //      = new FilteredElementCollector(_doc, _doc.ActiveView.Id);
          ICollection<ElementId> selectedElems = new List<ElementId>();
 
          if (item != null && item.IsSelected) {

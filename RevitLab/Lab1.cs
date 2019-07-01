@@ -28,6 +28,7 @@ namespace RevitLab
          buttonNames.Add("Duplicate Symbol and place");
          buttonNames.Add("Make Selection of family 4 elem");
          buttonNames.Add("Display selection category");
+         buttonNames.Add("Translate selected element");
          numberOfAddins = buttonNames.Count();
       }
 
