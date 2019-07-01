@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:RevitLab"
         mc:Ignorable="d"
         ShowInTaskbar="False"
-        Title="Lenght Input" Height="99.833" Width="371.833">
-    <Grid>
+        Title="Lenght Input" Height="109.166" Width="371.833">
+    <Grid Margin="0,0,0,-7">
         <Grid.DataContext>
             <local:Lab7Utils/>
         </Grid.DataContext>

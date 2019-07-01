@@ -10,8 +10,10 @@ namespace RevitLab
 {
    public class Lab7Utils
    {
-      ICommand _getCubeSize = new DelegateCommand((x) => TaskDialog.Show("gsgds", x.ToString()));
+
+      ICommand _getCubeSize = new DelegateCommand((param) => Lab7Button.DrawCube(Convert.ToInt32(param)));
 
       public ICommand GetCubeSize { get { return _getCubeSize; } }
+
    }
 }
