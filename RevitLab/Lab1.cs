@@ -8,7 +8,6 @@ using System.Windows.Media.Imaging;
 
 namespace RevitLab
 {
-   //[Transaction(TransactionMode.ReadOnly)]
    [Regeneration(RegenerationOption.Manual)]
    public class Lab1 : IExternalApplication
    {

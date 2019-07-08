@@ -2,6 +2,7 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Selection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace RevitLab
       {
          UIDocument uidoc = commandData.Application.ActiveUIDocument;
          Document doc = uidoc.Document;
+         Selection sel = uidoc.Selection;
 
          var mepSystemTypes = new FilteredElementCollector(doc)
                               .OfClass(typeof(PipingSystemType))
@@ -52,13 +54,13 @@ namespace RevitLab
             return Result.Failed;
          }
 
-         var startPoint = XYZ.Zero;
-
-         var endPoint = new XYZ(10, 0, 0);
-
-         using (Transaction t = new Transaction(doc, "Create pipe using Pipe.Create")) {
+         using (Transaction trans = new Transaction(doc, "Create pipe using Pipe.Create")) {
             try {
-               t.Start();
+               trans.Start();
+
+               XYZ startPoint = sel.PickPoint();
+               XYZ endPoint = sel.PickPoint();
+
                var pipe = Pipe.Create(doc,
                  domesticHotWaterSystemType.Id,
                  firstPipeType.Id,
@@ -66,10 +68,10 @@ namespace RevitLab
                  startPoint,
                  endPoint);
 
-               t.Commit();
+               trans.Commit();
             } catch (Exception e) {
                TaskDialog.Show("Error", e.Message);
-               t.RollBack();
+               trans.RollBack();
                return Result.Failed;
             }
             return Result.Succeeded;
