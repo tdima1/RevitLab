@@ -12,7 +12,7 @@ namespace RevitLab.ViewModels
    class Lab5ViewModel
    {
       private IList<MyListViewItem> itemsList;
-      public ICommand listViewClick;
+      //public ICommand listViewClick;
 
       public Lab5ViewModel()
       {

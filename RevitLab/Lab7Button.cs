@@ -28,6 +28,9 @@ namespace RevitLab
 
       public static Result DrawCube(int size)
       {
+         int offsetX = size / 3;
+         int offsetY = size / 5;
+
          if (_commData != null) {
             UIDocument uidoc = _commData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
@@ -39,7 +42,13 @@ namespace RevitLab
                new XYZ(),
                new XYZ(size, 0, 0),
                new XYZ(size, size, 0),
-               new XYZ(0, size, 0)
+               new XYZ(0, size, 0),
+
+               new XYZ(offsetX, offsetY, 0),
+               new XYZ(size + offsetX, offsetY, 0),
+               new XYZ(size + offsetX, size+offsetY, 0),
+               new XYZ(offsetX, size + offsetY, 0)
+
             };
 
             //Curve geometryCurve = Line.CreateBound(cubePoints[0], cubePoints[1]);
@@ -53,14 +62,15 @@ namespace RevitLab
 
             foreach (XYZ start in cubePoints) {
                foreach (XYZ finish in cubePoints) {
-                  if (start != finish && start.DistanceTo(finish).Equals(size)) {
+                  if (start != finish && (start.DistanceTo(finish) == size || 
+                     start.DistanceTo(finish).Equals(Math.Sqrt(Math.Pow(offsetX, 2) + Math.Pow(offsetY, 2))) )) {
                      Curve geometryCurve = Line.CreateBound(start, finish);
-                     Curve geometryCurveZ = geometryCurve.CreateTransformed(Transform.CreateTranslation(new XYZ(size/2,size/3,size)));
-                     Curve geometryCurveY = geometryCurve.CreateTransformed(Transform.CreateRotation(new XYZ(0, 0, 1), 90));
+                     //Curve geometryCurveZ = geometryCurve.CreateTransformed(Transform.CreateTranslation(new XYZ(size/2,size/3,size)));
+                     //Curve geometryCurveY = geometryCurve.CreateTransformed(Transform.CreateRotation(new XYZ(0, 0, 1), 90));
 
                      DetailLine line = doc.Create.NewDetailCurve(activeView, geometryCurve) as DetailLine;
-                     DetailLine lineZ = doc.Create.NewDetailCurve(activeView, geometryCurveZ) as DetailLine;
-                     DetailLine lineY = doc.Create.NewDetailCurve(activeView, geometryCurveY) as DetailLine;
+                     //DetailLine lineZ = doc.Create.NewDetailCurve(activeView, geometryCurveZ) as DetailLine;
+                     //DetailLine lineY = doc.Create.NewDetailCurve(activeView, geometryCurveY) as DetailLine;
                   }
                }
             }

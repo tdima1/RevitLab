@@ -4,13 +4,12 @@ using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace RevitLab
 {
-   [Transaction(TransactionMode.ReadOnly)]
+   //[Transaction(TransactionMode.ReadOnly)]
+   [Regeneration(RegenerationOption.Manual)]
    public class Lab1 : IExternalApplication
    {
       private int numberOfAddins;
@@ -36,8 +35,8 @@ namespace RevitLab
       public void Initialize(RibbonPanel panel, int addinNum, string buttonName)
       {
          PushButton button = panel.AddItem(new PushButtonData($"Lab {addinNum}",
-         buttonName, @"RevitLab.dll", $"RevitLab.Lab{addinNum}Button")) as PushButton;
-         AddImageToButton(button, $@"C:\Users\TDima\Desktop\Workplace\RevitLab\Resources\Lab{addinNum}Button.png");
+         buttonName, typeof(Lab1Button).Assembly.Location, $"RevitLab.Lab{addinNum}Button")) as PushButton;
+         AddImageToButton(button, $@"D:\Workspace\RevitLab\Resources\Lab{addinNum}Button.png");
          panel.AddSeparator();
       }
 
