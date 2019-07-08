@@ -29,6 +29,7 @@ namespace RevitLab
          buttonNames.Add("Display selection category");
          buttonNames.Add("Translate selected element");
          buttonNames.Add("Draw Cube");
+         buttonNames.Add("Place Pipe");
          numberOfAddins = buttonNames.Count();
       }
 
