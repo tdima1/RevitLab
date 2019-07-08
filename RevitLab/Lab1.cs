@@ -29,6 +29,7 @@ namespace RevitLab
          buttonNames.Add("Translate selected element");
          buttonNames.Add("Draw Cube");
          buttonNames.Add("Place Pipe");
+         buttonNames.Add("Rotate Left");
          numberOfAddins = buttonNames.Count();
       }
 

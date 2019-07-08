@@ -31,7 +31,7 @@ namespace RevitLab
        MEPSystemClassification.DomesticHotWater);
 
          if (domesticHotWaterSystemType == null) {
-            message = "Could not found Domestic Hot Water System Type";
+            message = "Could not find Domestic Hot Water System Type";
             return Result.Failed;
          }
 
@@ -43,7 +43,7 @@ namespace RevitLab
          var firstPipeType = pipeTypes.FirstOrDefault();
 
          if (firstPipeType == null) {
-            TaskDialog.Show("Oops!", "Could not found Pipe Type");
+            TaskDialog.Show("Oops!", "Could not find Pipe Type");
             return Result.Failed;
          }
 
