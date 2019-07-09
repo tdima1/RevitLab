@@ -5,6 +5,7 @@ using Autodesk.Revit.UI.Selection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace RevitLab
 {
@@ -15,26 +16,28 @@ namespace RevitLab
       {
          UIDocument uidoc = commandData.Application.ActiveUIDocument;
          Document doc = uidoc.Document;
-         //Selection sel = uidoc.Selection;
-         Lab5Window window = new Lab5Window(uidoc);
 
          using (Transaction trans = new Transaction(doc, "Display selected elements category")){
             trans.Start();
             try {
 
-            FilteredElementCollector instances
-                     = new FilteredElementCollector(doc, doc.ActiveView.Id);
+               FilteredElementCollector instances
+                        = new FilteredElementCollector(doc, doc.ActiveView.Id)
+                        .OfClass(typeof(FamilyInstance));
 
             List<MyListViewItem> myListViewItems = new List<MyListViewItem>();
 
-               foreach (var inst in instances.ToElements()) {
-                  myListViewItems.Add(new MyListViewItem() { Id = inst.Id.IntegerValue,
+               foreach (Element inst in instances.ToElements()) {
+                  myListViewItems.Add(new MyListViewItem() {
+                     Id = inst.UniqueId,
                      CategoryName = inst.Name });
-                  
                }
 
+               Lab5Window window = new Lab5Window(uidoc);
+               
                window.CategoryList.ItemsSource = myListViewItems;
                window.Show();
+
                trans.Commit();
 
             } catch (Exception e) {
@@ -45,13 +48,10 @@ namespace RevitLab
          }
       }
 
-      public Result MakeSelection(UIDocument _uidoc, Document _doc, ICollection<ElementId> selectedElems)
+      public static Result MakeSelection(UIDocument _uidoc, string selectedElemId)
       {
-         using (Transaction trans = new Transaction(_doc, "Highlight selected element from Window")) {
-            trans.Start();
-            _uidoc.Selection.SetElementIds(selectedElems);
-            trans.Commit();
-         }
+         List<ElementId> selectedElemIdList = new List<ElementId>() { _uidoc.Document.GetElement(selectedElemId).Id };
+         _uidoc.Selection.SetElementIds(selectedElemIdList);
          return Result.Succeeded;
       }
    }
