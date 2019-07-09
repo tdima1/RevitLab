@@ -5,18 +5,7 @@ using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-/*FilteredElementCollector symbols
-            = new FilteredElementCollector(doc)
-               .OfClass(typeof(FamilySymbol));
 
-         FamilySymbol toCloneSymbol = null;
-
-         for (int i = 0; i < symbols.Count(); i++) {
-            if (symbols.ElementAt(i).Name == "Ball Valve") {
-               toCloneSymbol = symbols.ElementAt(i) as FamilySymbol;
-            }
-         }
-         TaskDialog.Show("Symbol to clone", toCloneSymbol.Name);*/
 namespace RevitLab
 {
    [Transaction(TransactionMode.Manual)]
@@ -26,7 +15,7 @@ namespace RevitLab
       {
          UIApplication app = commandData.Application;
          Document doc = app.ActiveUIDocument.Document;
-         string FamilyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\Lab3_Test_Family.rfa";
+         string FamilyPath = @"D:\Workspace\RevitLab\Resources\families\Lab3_Test_Family.rfa";
          Family family = null;
          FamilySymbol newSymbol = null;
 

@@ -17,7 +17,7 @@ namespace RevitLab
          UIDocument uidoc = commandData.Application.ActiveUIDocument;
          Document doc = uidoc.Document;
          Selection sel = uidoc.Selection;
-         string FamilyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\Lab4_Test_Family.rfa";
+         string FamilyPath = @"D:\Workspace\RevitLab\Resources\families\Lab4_Test_Family.rfa";
          Family family = null;
          List<FamilySymbol> familySymbols = new List<FamilySymbol>();
          XYZ position = new XYZ();

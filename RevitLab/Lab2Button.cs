@@ -11,7 +11,7 @@ namespace RevitLab
       {
          UIApplication app = commandData.Application;
          Document document = app.ActiveUIDocument.Document;
-         string familyPath = @"C:\Users\Student\source\repos\RevitLab\RevitLab\Resources\families\lab3_Test_Family.rfa";
+         string familyPath = @"D:\Workspace\RevitLab\Resources\families\lab3_Test_Family.rfa";
          //string str = "";
 
          Transaction trans = new Transaction(document, "Loading");
@@ -24,16 +24,6 @@ namespace RevitLab
             TaskDialog.Show("Revit", $"Can't load the family file at {familyPath}.");
          }
          trans.Commit();
-
-         //FilteredElementCollector families
-         //   = new FilteredElementCollector(document)
-         //      .OfClass(typeof(Family));
-         //
-         //foreach (Family f in families) {
-         //   str = str + f.Name + "\n";
-         //}
-         //
-         //TaskDialog.Show("title", str);
 
          return Result.Succeeded;
       }
