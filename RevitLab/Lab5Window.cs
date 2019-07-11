@@ -40,6 +40,11 @@ namespace RevitLab
          Lab5Button.MakeSelection(_uidoc, elementIdAsString);
       }
 
+      public new void MouseClick(object sender, RoutedEventArgs e)
+      {
+         Lab5Button.PopulateList();
+      }
+
    }
 
 
